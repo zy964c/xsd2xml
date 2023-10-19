@@ -2,6 +2,11 @@
 # xsd2xml
 This is a simple python script to help you generate some xmls if you have a xsd. It uses the [xmlschema](https://github.com/brunato/xmlschema) library to parse the given schema document and then populate some hardcoded values. check the following example. 
 
+# Install
+```bash
+$ pip install xsd2xml-0.0.1-py3-none-any.whl
+```
+
 ## XSD
 ```xsd
 <?xml version="1.0" encoding="utf-8"?>
@@ -94,26 +99,27 @@ This is a simple python script to help you generate some xmls if you have a xsd.
 ```
 The command to get the above xml:  
 ```bash
-$ python xsd2xml.py -s 1.xsd -e root | xmllint --format -
+$ xsd2xml -s 1.xsd -t root
 ```
 ## Usage
 ```bash
-$ ./xsd2xml.py -h
-usage: adv.xsd2xml.py [-h] -s XSDFILE -e ELEMENT [-c]
+$ xsd2xml --help
 
-optional arguments:
-  -h, --help            show this help message and exit
-  -s XSDFILE, --schema XSDFILE
-                        select the xsd used to generate xml
-  -e ELEMENT, --element ELEMENT
-                        select an element to dump xml
-  -c, --choice          enable the <choice> mode
+Usage: xsd2xml [OPTIONS]
+
+Options:
+  -s, --schema PATH              Путь к xsd схеме  [required]
+  -t, --root-tag TEXT            Корневой элемент xml  [required]
+  -c, --choice                   Создавать только первый вариант choice
+  -v, --verbose                  Включить в вывод комментарии
+  -r, --recursion-depth INTEGER  Максимальная глубина рекурсии  [default: 8]
+  --help                         Show this message and exit.
 ```
 ## Handle `<choice>`
 You can generate all in a choice group (as the above example shows) or you can generate the 1st element in the choice group by the "-c" option.
 ### command
 ```bash
-$ python xsd2xml.py -s 1.xsd -e root -c | xmllint --format -
+$ xsd2xml -s 1.xsd -t root -c
 ```
 ### xml
 ```xml
